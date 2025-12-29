@@ -6,18 +6,22 @@ async function main() {
     const vibe = await browserSync.launch()
 
     // Go to a website
-    await vibe.go('https://tradelingtesting.com')
-    console.log('Loaded https://tradelingtesting.com')
+    await vibe.go('https://candymapper.com/')
+    console.log('Loaded https://candymapper.com/')
 
     // Take a screenshot
     const png = await vibe.screenshot()
     fs.writeFileSync('screenshot.png', png)
     console.log('Saved screenshot.png')
-
+    
+    //close popup
+    const closePopup = await vibe.find('#popup-widget183-close-icon')
+    await closePopup.click()
+    console.log('popup closed!')
     // Find and click the link
-    const link = await vibe.find('[data-testid="Express"]')
-    console.log('Found link:', link.text())
-    await link.click()
+    const joinUsLink = await vibe.find('[href="/join-us"]')
+    console.log('join us link:', joinUsLink.text())
+    await joinUsLink.click()
     console.log('Clicked!')
 
     // Close the browser
